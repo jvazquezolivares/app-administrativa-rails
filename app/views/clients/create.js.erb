@@ -1,0 +1,4 @@
+$('#modalClientes').modal('toggle');
+$('#tablaClientes').append(
+    '<tr id="cliente_<%= @cliente.id %>" ><td><%= @cliente.nombre %></td><td><%= @cliente.direccion %></td><td><%= @cliente.telefono %></td><td><%= link_to 'editar', edit_client_path(@cliente), html_options = {class: "btn btn-info btn-xs", remote: true} %> <%= link_to "Borrar", @cliente, remote: true, method: :delete, data: { confirm: "¿Borrar cliente: #{@cliente.nombre}?"}, class: "btn btn-danger btn-xs" %></td></tr>'
+);

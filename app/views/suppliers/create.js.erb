@@ -1,0 +1,4 @@
+$('#modalProveedores').modal('toggle');
+$('#tablaProveedores').append(
+    '<tr id="proveedor_<%= @proveedor.id %>" ><td><%= @proveedor.nombre %></td><td><%= @proveedor.direccion %></td><td><%= @proveedor.telefono %></td><td><%= link_to 'editar', edit_supplier_path(@proveedor), html_options = {class: "btn btn-info btn-xs", remote: true} %> <%= link_to "Borrar", @proveedor, remote: true, method: :delete, data: { confirm: "¿Borrar categoria: #{@proveedor.nombre}?"}, class: "btn btn-danger btn-xs" %></td></tr>'
+);

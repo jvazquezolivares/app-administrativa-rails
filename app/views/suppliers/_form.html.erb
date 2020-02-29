@@ -1,0 +1,40 @@
+<%= form_for @proveedor, remote: true do |f| %>
+
+    <div class="form-group">
+      <h4 class="control-label">Datos del proveedor:</h4>
+    </div>
+
+    <div class="item form-group<%= @proveedor.errors[:nombre].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.label :nombre, "Nombre del Proveedor: " %>
+      <div class="input-group">
+        <%= f.text_field :nombre, {:class=> "form-control", :placeholder=>"Introduzca el nombre del proveedor..."} %>        
+        <%if @proveedor.errors[:nombre].any? %>
+          <p class="bg-danger"><%= @proveedor.errors[:categoria].to_s[/\w([^"]*)/] %></p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="item form-group<%= @proveedor.errors[:direccion].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.label :direccion, "Dirección del proveedor: " %>
+      <div class="input-group">
+        <%= f.text_area :direccion, {class: "form-control", :placeholder=>"Dirección del proveedor..."} %>
+        <%if @proveedor.errors[:direccion].any? %>
+          <p class="bg-danger"><%= @proveedor.errors[:direccion].to_s[/\w([^"]*)/] %></p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="item form-group<%= @proveedor.errors[:telefono].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.label :telefono, "Teléfono del Proveedor: " %>
+      <div class="input-group">
+        <%= f.text_field :telefono, {:class=> "form-control", :placeholder=>"Introduzca el teléfono del proveedor..."} %>        
+        <%if @proveedor.errors[:telefono].any? %>
+          <p class="bg-danger"><%= @proveedor.errors[:telefono].to_s[/\w([^"]*)/] %></p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="actions col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+      <%= f.submit @proveedor.new_record? ? "Crear Proveedor" : "Actualizar Proveedor", :class => "btn btn-success"%>
+    </div>  
+  <% end %>

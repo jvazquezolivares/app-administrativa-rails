@@ -1,0 +1,40 @@
+<%= form_for @cliente, { remote: true, multiple: true }  do |f| %>
+
+    <div class="form-group">
+      <h4 class="control-label">Datos del cliente:</h4>
+    </div>
+
+    <div class="item form-group<%= @cliente.errors[:nombre].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.label :nombre, "Nombre del cliente: " %>
+      <div class="input-group">
+        <%= f.text_field :nombre, {:class=> "form-control", :placeholder=>"Introduzca el nombre del cliente..."} %>        
+        <%if @cliente.errors[:nombre].any? %>
+          <p class="bg-danger"><%= @cliente.errors[:nombre].to_s[/\w([^"]*)/] %></p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="item form-group<%= @cliente.errors[:direccion].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.label :direccion, "Dirección del cliente: " %>
+      <div class="input-group">
+        <%= f.text_area :direccion, {class: "form-control", :placeholder=>"Introduzca la dirección del cliente..."} %>
+        <%if @cliente.errors[:direccion].any? %>
+          <p class="bg-danger"><%= @cliente.errors[:direccion].to_s[/\w([^"]*)/] %></p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="item form-group<%= @cliente.errors[:telefono].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.label :telefono, "Telefono del cliente: " %>
+      <div class="input-group">
+        <%= f.text_field :telefono, {:class=> "form-control", :placeholder=>"Introduzca el teléfono del cliente.."} %>        
+        <%if @cliente.errors[:telefono].any? %>
+          <p class="bg-danger"><%= @cliente.errors[:telefono].to_s[/\w([^"]*)/] %></p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="actions col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+      <%= f.submit @cliente.new_record? ? "Crear Cliente" : "Actualizar Cliente", :class => "btn btn-success"%>
+    </div>  
+  <% end %>

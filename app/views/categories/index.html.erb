@@ -1,0 +1,38 @@
+<h1 class="h3 mb-2 text-gray-800">Categorias de productos</h1>
+
+<div>  
+  <%= link_to new_category_path, {remote: true, class: "btn btn-info", id: "anadir-categoria-btn"}  do %>
+    <span class="fas fa-plus-square" ></span>
+  <% end %>
+</div>
+<br />
+
+<div class="card shadow mb-4">
+  <div class="card-body">
+    <div class="table-responsive">
+       <table id="tablaCategorias" class="table table-bordered" width="100%">
+         <thead>
+           <tr>
+             <th>Nombre Categoría</th>
+             <th>Descripcion</th>
+             <th></th>
+           </tr>
+         </thead>
+         <tbody>
+         <% @categorias.each do |cat| %>
+            <tr id="categoria_<%= cat.id %>" >
+                <td><%= cat.nombre %></td>
+                <td><%= cat.descripcion %></td>
+                <td>
+                <%= link_to "editar", edit_category_path(cat), html_options = {class: "btn btn-info btn-xs", remote: true} %>
+                <%= link_to 'Borrar', cat, remote: true, method: :delete, data: { confirm: "¿Borrar categoria: #{cat.nombre}?"}, class: "btn btn-danger btn-xs" %>
+                </td>
+            </tr>
+         <% end %>
+         </tbody>
+       </table>
+    </div>
+  </div>
+</div>
+
+<%= render 'modal_categorias' %>
