@@ -1,0 +1,42 @@
+<h1 class="h3 mb-2 text-gray-800">Productos</h1>
+<div>  
+  <%= link_to new_product_path, { remote: true, class: "btn btn-info" }  do %>
+    <span class="fas fa-plus-square" ></span>
+  <% end %>
+</div>
+<br />
+<div class="card shadow mb-4">
+<div class="card-body">
+    <div class="table-responsive">
+    <table class="table table-bordered" id="tablaProductos" width="100%" cellspacing="0">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Nombre producto</th>
+            <th>Existencia</th>
+            <th>Precio</th>
+            <th>Categoria</th>
+            <th>Proveedor</th>
+        </tr>
+        </thead>
+        <tbody>
+            <% @productos.each do |prod| %>
+            <tr id="producto_<%= prod.id %>" >
+                <td><%= image_tag(prod.imagen.url, size: "50x50", class: "rounded-circle") if prod.imagen? %></td>
+                <td><%= prod.nombre %></td>
+                <td><%= prod.existencia %></td>
+                <td>$<%= prod.precio %></td>
+                <td><%= prod.category != nil ? prod.category.nombre : "No tiene categoria" %></td>
+                <td><%= prod.supplier != nil ? prod.supplier.nombre : "No tiene proveedor" %></td>
+                <td>
+                <%= link_to "editar", edit_product_path(prod), html_options = {class: "btn btn-info btn-xs", remote: true} %>
+                <%= link_to "Borrar", prod, remote: true, method: :delete, data: { confirm: "¿Borrar producto: #{prod.nombre}?"}, class: "btn btn-danger btn-xs" %>
+                </td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+<%= render 'modal_productos' %>

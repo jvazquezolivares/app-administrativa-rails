@@ -1,0 +1,4 @@
+$('#modalProductos').modal('toggle');
+$('#producto_<%= @product.id %>').replaceWith(
+    '<tr id="producto_<%= @product.id %>" ><td><%= image_tag(@product.imagen.url, size: "50x50", class: "rounded-circle") if @product.imagen? %></td><td><%= @product.nombre %></td><td><%= @product.existencia %></td><<td>$ <%= @product.precio %></td><td><%= @product.category != nil ? @product.category.nombre : "No tiene categoria" %></td><td><%= @product.supplier != nil ? @product.supplier.nombre : "No tiene proveedor" %></td><td><%= link_to 'editar', edit_product_path(@product), html_options = {class: "btn btn-info btn-xs", remote: true} %> <%= link_to "Borrar", @product, remote: true, method: :delete, data: { confirm: "¿Borrar producto: #{@product.nombre}?"}, class: "btn btn-danger btn-xs" %></td></tr>'
+);

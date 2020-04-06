@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_23_005547) do
+ActiveRecord::Schema.define(version: 2020_03_28_060641) do
 
   create_table "categories", force: :cascade do |t|
     t.string "nombre"
@@ -33,12 +33,12 @@ ActiveRecord::Schema.define(version: 2020_02_23_005547) do
     t.string "descripcion"
     t.integer "existencia"
     t.decimal "precio"
-    t.integer "categories_id"
-    t.integer "suppliers_id"
+    t.integer "category_id"
+    t.integer "supplier_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["categories_id"], name: "index_products_on_categories_id"
-    t.index ["suppliers_id"], name: "index_products_on_suppliers_id"
+    t.index ["category_id"], name: "index_products_on_category_id"
+    t.index ["supplier_id"], name: "index_products_on_supplier_id"
   end
 
   create_table "sales", force: :cascade do |t|

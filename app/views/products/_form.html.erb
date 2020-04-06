@@ -1,0 +1,80 @@
+<%= form_for @product, { remote: true, multipart: true }  do |f| %>
+
+    <div class="form-group">
+      <h4 class="control-label">Datos del producto:</h4>
+    </div>
+
+    <div class="item form-group<%= @product.errors[:imagen].any? ? ' has-error has-feedback' : '' %>">
+      <%= image_tag(@product.imagen.url, size: "150x150") if @product.imagen? %>
+      <div class="input-group">
+        <%= f.file_field :imagen, {:class=> "form-control" } %>        
+        <%if @product.errors[:imagen].any? %>
+          <p class="bg-danger"><%= @product.errors[:imagen].to_s[/\w([^"]*)/] %></p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="item form-group<%= @product.errors[:nombre].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.label :nombre, "Nombre del producto: " %>
+      <div class="input-group">
+        <%= f.text_field :nombre, {:class=> "form-control", :placeholder=>"Introduzca el nombre del producto..."} %>        
+        <%if @product.errors[:nombre].any? %>
+          <p class="bg-danger"><%= @product.errors[:nombre].to_s[/\w([^"]*)/] %></p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="item form-group<%= @product.errors[:descripcion].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.label :descripcion, "Descripción del producto: " %>
+      <div class="input-group">
+        <%= f.text_area :descripcion, {class: "form-control", :placeholder=>"Introduzca la descripción del producto..."} %>
+        <%if @product.errors[:descripcion].any? %>
+          <p class="bg-danger"><%= @product.errors[:descripcion].to_s[/\w([^"]*)/] %></p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="item form-group<%= @product.errors[:precio].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.label :precio, "Precio del producto: " %>
+      <div class="input-group">
+        <%= f.number_field :precio, {class: "form-control", :placeholder=>"Precio del producto"} %>
+        <%if @product.errors[:precio].any? %>
+          <p class="bg-danger"><%= @product.errors[:precio].to_s[/\w([^"]*)/] %></p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="item form-group<%= @product.errors[:existencia].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.label :existencia, "Stock inicial: " %>
+      <div class="input-group">
+        <%= f.number_field :existencia, {class: "form-control", :placeholder=>"Stock inicial"} %>
+        <%if @product.errors[:existencia].any? %>
+          <p class="bg-danger"><%= @product.errors[:existencia].to_s[/\w([^"]*)/] %></p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="item form-group<%= @product.errors[:category].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.label :categoria, "Categoría: " %>
+      <div class="input-group">
+      <%= collection_select(:product, :category_id, @categorias, :id, :nombre, {:prompt => 'Seleccione categoria'}, { class: "form-control" })%>
+        <%if @product.errors[:category].any? %>
+          <p class="bg-danger"><%= @product.errors[:category].to_s[/\w([^"]*)/] %></p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="item form-group<%= @product.errors[:supplier].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.label :supplier, "Proveedor: " %>
+      <div class="input-group">
+      <%= collection_select(:product, :supplier_id, @proveedores, :id, :nombre, {:prompt => 'Seleccione un proveedor'}, { class: "form-control" })%>
+        <%if @product.errors[:supplier].any? %>
+          <p class="bg-danger"><%= @product.errors[:supplier].to_s[/\w([^"]*)/] %></p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="actions col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+      <%= f.submit @product.new_record? ? "Crear Producto" : "Actualizar Producto", :class => "btn btn-success"%>
+    </div>  
+  <% end %>

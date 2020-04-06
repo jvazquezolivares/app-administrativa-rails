@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :categories, except: [:show]
   resources :clients, except: [:show]
   resources :suppliers, except: [:show]
+  resources :products, except: [:show]
 end
