@@ -1,0 +1,43 @@
+<form>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="id">ID</label>
+      <input type="text" class="form-control" value="<%= @venta.id %>">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="fecha">Fecha</label>
+      <input type="text" class="form-control" value="<%= @venta.created_at.strftime("%d-%m-%Y") %>">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="id">Monto de venta</label>
+      <input type="text" class="form-control" value="<%= @venta.importe %>">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="vendedor">Vendedor</label>
+      <input type="text" class="form-control" value="<%= @venta.user.email %>">
+    </div>
+  </div>
+</form>
+<br>
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th>Producto</th>
+      <th>Cantidad</th>
+      <th>Precio</th>
+      <th>Importe</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @venta.sale_details.each do |detalle| %>
+    <tr>
+       <td><%= detalle.product.nombre %></td>
+       <td><%= detalle.cantidad %></td>
+       <td><%= detalle.product.precio %></td>
+       <td><%= detalle.product.precio * detalle.cantidad %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
