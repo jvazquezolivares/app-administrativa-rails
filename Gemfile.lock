@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/faker-ruby/faker.git
+  revision: 7309c9d59f1f73e7875635c083f7d8958e0c9f3a
+  branch: master
+  specs:
+    faker (2.13.0)
+      i18n (>= 1.6, < 2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -301,6 +309,7 @@ DEPENDENCIES
   chromedriver-helper
   coffee-rails (~> 4.2)
   devise
+  faker!
   fog-google
   font_awesome5_rails
   google-api-client (> 0.8.5, < 0.9)
@@ -323,7 +332,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 RUBY VERSION
-   ruby 2.4.4p296
+   ruby 2.5.0p0
 
 BUNDLED WITH
    2.1.4

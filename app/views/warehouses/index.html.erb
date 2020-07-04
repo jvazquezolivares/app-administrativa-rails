@@ -1,0 +1,44 @@
+<%= link_to new_warehouse_path, {class: "btn btn-info", id: "registrar-entrada-btn"}  do %>
+    <span class="fas fa-plus-square"> </span>
+    Registrar entrada
+<%end%>
+<br />
+<br />
+<div class="card shadow mb-4">
+<div class="card-body">
+    <div class="table-responsive">
+    <table class="table table-bordered" id="tabla_almacen" width="60%" cellspacing="0">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Almacenista</th>
+            <th>Proveedor</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+          <% if @entradas_almacen.empty? %>
+          <tr> 
+            <td> No hay entradas </td><td></td><td></td> 
+          </tr>
+          <% else %>
+            <% @entradas_almacen.each do |entrada| %>
+              <tr> 
+                <td> <%= entrada.id %> </td>
+                <td> <%= entrada.user.email %> </td>
+                <td> <%= entrada.supplier.present? ? entrada.supplier.nombre : "Proveedor general" %> </td>
+                <td> 
+                  <%= link_to 'Detalles', warehouse_path(entrada), {class: "btn btn-info btn-xs", remote: true} %> 
+                  <%= link_to 'Borrar', {action: 'destroy', id: entrada.id}, method: :delete, data: { confirm: 'Eliminar la entrada de almacen?' }, class: "btn btn-danger btn-xs" %> 
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+<%= render 'modal_warehouse' %>
+
+

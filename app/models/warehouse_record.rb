@@ -1,4 +1,5 @@
 class WarehouseRecord < ApplicationRecord
-  belongs_to :supplier
-  belongs_to :product
+  belongs_to :supplier, optional: true
+  belongs_to :user
+  has_many :warehouse_details
 end

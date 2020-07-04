@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.4.4'
+ruby '2.5.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.4', '>= 5.2.4.1'
@@ -46,6 +46,7 @@ gem 'carrierwave', '~> 2.0'
 gem "fog-google"
 gem "google-api-client", "> 0.8.5", "< 0.9"
 gem "mime-types"
+gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record

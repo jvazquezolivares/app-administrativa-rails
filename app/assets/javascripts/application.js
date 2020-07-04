@@ -84,7 +84,44 @@ document.addEventListener("turbolinks:load", function() {
       });
     }
   });
+
+  $("#buscador_proveedores").keyup(function(event){
+    let termino = $(this).val();
+    let id_registro_almacen = $(this).data("warehouse");
+    if(termino.length == 0) {
+      $("#tabla_buscador_proveedores tbody").empty();
+    }
+    else {
+      let request_url = getRootUrl() + "/buscador_proveedor/" + termino;
+      $.get(request_url, function(data, status){
+        if(data.length > 0){
+          $("#tabla_buscador_proveedores tbody").empty();
+          for(x in data){
+            let id_proveedor = data[x].id;
+            let nombre = data[x].nombre_proveedor;
+            let rowContent = `
+               <tr>
+                 <td>${nombre}</td>
+                 <td>
+                     <button 
+                       class = "btn btn-primary"
+                       onclick="seleccionarProveedor(${id_proveedor}, ${id_registro_almacen})"
+                       >
+                         Agregar
+                     </button>
+                 </td>
+               </tr>
+            `;
+            $("#tabla_buscador_proveedores tbody").append(rowContent);
+          }
+        }
+      });
+    }
+  });
+
 });
+
+
 
 function seleccionarProducto(id_producto, id_modelo, tipo_modelo){
   switch(tipo_modelo){
@@ -92,6 +129,7 @@ function seleccionarProducto(id_producto, id_modelo, tipo_modelo){
       agregarItemVenta(id_producto, id_modelo);
       break;
     case 'warehouse':
+      agregarProductoAlmacen(id_producto, id_modelo);
       break;
   }
 }
@@ -111,6 +149,27 @@ function seleccionarCliente(id_cliente, id_venta){
         $('.modal-backdrop').remove();
         let nombre_cliente = result.nombre_cliente;
         $("#cliente_venta").html("Cliente: " + nombre_cliente)
+      }
+    }
+  });
+}
+
+function seleccionarProveedor(id_proveedor, id_registro_almacen){
+  let request_url = getRootUrl() + "/add_sup_almacen/";
+  let info = { proveedor_id: id_proveedor, id: id_registro_almacen };
+  $.ajax({
+    url: request_url,
+    type: 'POST',
+    data: JSON.stringify(info),
+    contentType: 'application/json; charset=utf-8',
+    success: function(result){
+      if(result != null) {
+        $("#buscador_proveedor").modal("hide");
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+        
+        let nombre_proveedor = result.nombre_proveedor;
+        $("#proveedor-entrada").html("Proveedor: " + nombre_proveedor);
       }
     }
   });
@@ -144,6 +203,39 @@ function agregarItemVenta(id_producto, id_venta){
           
           $("#tabla_ventas tbody").append(newRowContent);
           $("#importe_venta_lbl").text("Importe: $" + importe_venta);
+      }
+    }
+  });
+}
+
+function agregarProductoAlmacen(id_producto, id_entrada_almacen){
+  let cantidad_inicial = $("#cantidad_producto").val();
+  let request_url = getRootUrl() + "/add_item_almacen";
+  let info = { product_id: id_producto, id: id_entrada_almacen, cantidad: cantidad_inicial };
+  $.ajax({
+    url: request_url,
+    type: 'POST',
+    data: JSON.stringify(info),
+    contentType: 'application/json',
+    success: function(result) {
+      console.log("resultado: " + result);
+      if( result != null ){
+        $("#buscador_producto").modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+
+        let product_id = result.product_id;
+        let cantidad = result.cantidad;
+        let producto = result.producto;
+
+        let registro_almacen = `
+          <tr>
+            <td>${product_id}</td>
+            <td>${producto}</td>
+            <td>${cantidad}</td>
+          </tr>
+        `;
+        $("#tabla_entradas_almacen").append(registro_almacen);
       }
     }
   });

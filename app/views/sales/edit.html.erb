@@ -16,6 +16,7 @@
   </div>
   <div class="col-md-7" style="text-align:right;">
     <%= link_to 'Finalizar venta', sales_path, class: "btn btn-success" %>
+    
     <%= link_to 'Cancelar venta', @venta, method: :delete, data: { confirm: '¿Cancelar la venta?' }, class: "btn btn-danger" %>
   </div>
   <div id="cliente_venta" class="nombre-cliente col-md-3" > 

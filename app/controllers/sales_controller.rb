@@ -18,6 +18,13 @@ class SalesController < ApplicationController
   end
 
   def destroy
+    #TODO: Al momento de destruir la venta, agregar nuevamente los productos vendidos
+    #al almacén.
+    # 1. Tener una lista de los productos de la venta.
+    # 2. Tener las cantidades registradas en la base de datos.
+    # 3. Obtener las cantidades que se vendieron.
+    # 4. Devolver la cantidad asignada.
+    # 5. Meter todo en una transacción.
     @venta.destroy
 
     respond_to do |format|

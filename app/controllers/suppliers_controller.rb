@@ -46,6 +46,19 @@ class SuppliersController < ApplicationController
     end
   end
 
+  def buscador
+    @resultados = Supplier.buscador(params[:termino]).map do |proveedor|
+      {
+          id: proveedor.id,
+          nombre_proveedor: proveedor.nombre
+      }
+    end
+
+    respond_to do |format|
+      format.json { render :json => @resultados }
+    end
+  end
+
   private
 
   def set_supplier

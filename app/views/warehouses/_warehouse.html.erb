@@ -1,0 +1,35 @@
+<form>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="id">ID</label>
+      <input type="text" class="form-control" value="<%= @entrada_almacen.id %>">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="fecha">Fecha</label>
+      <input type="text" class="form-control" value="<%= @entrada_almacen.created_at.strftime("%d-%m-%Y") %>">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="vendedor">Almacenista</label>
+      <input type="text" class="form-control" value="<%= @entrada_almacen.user.email %>">
+    </div>
+  </div>
+</form>
+<br>
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th>Producto</th>
+      <th>Cantidad</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @entrada_almacen.warehouse_details.each do |detalle| %>
+    <tr>
+       <td><%= detalle.product.nombre %></td>
+       <td><%= detalle.cantidad %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
