@@ -18,14 +18,15 @@ class SalesController < ApplicationController
   end
 
   def destroy
-    #TODO: Al momento de destruir la venta, agregar nuevamente los productos vendidos
-    #al almacén.
-    # 1. Tener una lista de los productos de la venta.
-    # 2. Tener las cantidades registradas en la base de datos.
-    # 3. Obtener las cantidades que se vendieron.
-    # 4. Devolver la cantidad asignada.
-    # 5. Meter todo en una transacción.
-    @venta.destroy
+    ActiveRecord::Base.transaction do
+      @venta.sale_details.map do |detail|
+        prod_vendido = Product.find(detail.product_id)
+        prod_vendido.existencia+= detail.cantidad
+        ActiveRecord::Rollback unless prod_vendido.save
+      end
+  
+      ActiveRecord::Rollback unless @venta.destroy
+    end
 
     respond_to do |format|
       format.html { redirect_to sales_url, notice: "La venta ha sido eliminada" }

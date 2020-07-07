@@ -18,14 +18,16 @@ class WarehousesController < ApplicationController
   end
 
   def destroy
-    #TODO: Al momento de destruir esta entrada de almacén, descontar cantidad del
-    # inventario.
-    # 1. Tener una lista de los productos de la entrada.
-    # 2. Tener las cantidades registradas en la base de datos.
-    # 3. Obtener las cantidades que se ingresaron.
-    # 4. Descontar la cantidad asignada.
-    # 5. Meter todo en una transacción.
-    @entrada_almacen.destroy
+
+    ActiveRecord::Base.transaction do
+      @entrada_almacen.warehouse_details.map do |detail|
+        prod_registrado = Product.find(detail.product_id)
+        prod_registrado.existencia-= detail.cantidad
+        ActiveRecord::Rollback unless prod_registrado.save
+      end
+  
+      ActiveRecord::Rollback unless @entrada_almacen.destroy
+    end
 
     respond_to do |format|
       format.html { redirect_to warehouses_path, notice: "La entrada ha sido eliminada" }
