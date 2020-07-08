@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get 'buscador_proveedor/:termino', to: 'suppliers#buscador'
   post '/add_sup_almacen/', to: 'warehouses#add_proveedor'
 
-  resources :products, except: [:show]
+  resources :products
   resources :sales
   get 'buscador_productos/:termino', to: 'products#buscador'
   post 'add_item_venta', to: 'sales#add_item'
@@ -20,4 +20,6 @@ Rails.application.routes.draw do
   post '/add_proveedor_entrada/', to: 'warehouses#add_proveedor'
 
   resources :profiles, only: [:show, :edit, :update]
+
+  post '/search', to: 'search#results'
 end

@@ -1,0 +1,26 @@
+<table class="table table-bordered" id="tabla-productos" width="100%" cellspacing="0">
+  <thead>
+    <tr>
+        <th>Nombre producto</th>
+        <th>Existencia</th>
+        <th>Precio</th>
+        <th>Categoria</th>
+        <th>Proveedor</th>
+        <th>Mostrar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @productos.each do |prod| %>
+      <tr>
+        <td><%= prod.nombre %></td>
+        <td><%= prod.existencia %></td>
+        <td>$<%= prod.precio %></td>
+        <td><%= prod.category != nil ? prod.category.nombre : "No tiene categoria" %></td>
+        <td><%= prod.supplier != nil ? prod.supplier.nombre : "No tiene proveedor" %></td>
+        <td>
+        <%= link_to "Mostrar", product_path(prod), html_options = {class: "btn btn-info btn-xs"} %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
