@@ -18,4 +18,6 @@ Rails.application.routes.draw do
   post 'add_item_almacen', to: 'warehouses#add_item'
   get 'buscador_proveedores/:termino', to: 'suppliers#buscador'
   post '/add_proveedor_entrada/', to: 'warehouses#add_proveedor'
+
+  resources :profiles, only: [:show, :edit, :update]
 end

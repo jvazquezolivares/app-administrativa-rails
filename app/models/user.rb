@@ -6,4 +6,11 @@ class User < ApplicationRecord
 
   has_many :sales
   has_many :warehouse_records
+  has_one :profile, dependent: :destroy
+
+  after_create :set_profile
+
+  def set_profile
+    self.profile = Profile.create()
+  end
 end

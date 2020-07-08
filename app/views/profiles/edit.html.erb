@@ -1,0 +1,41 @@
+<%= form_with model: @profile do |f| %>
+   <div class="input-group">
+     <%= image_tag(@profile.foto.url, size: "300x300") if @profile.foto? %>
+     <br />
+     <%= f.file_field :foto %>        
+     <%if @profile.errors[:foto].any? %>
+        <p class="bg-danger"><%= @profile.errors[:foto].to_s[/\w([^"]*)/] %></p>
+     <% end %>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <%= f.label :nombre %>
+      <%= f.text_field :nombre, class: "form-control" %>
+    </div>
+    <div class="form-group col-md-6">
+    <%= f.label :apellido %>
+    <%= f.text_field :apellido, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+  <%= f.label :direccion %>
+  <%= f.text_field :direccion, class: "form-control" %>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+    <%= f.label :ciudad %>
+    <%= f.text_field :ciudad, class: "form-control" %>
+    </div>
+    <div class="form-group col-md-4">
+        <%= f.label :estado %>
+        <%= f.text_field :estado, class: "form-control" %>
+    </div>
+    <div class="form-group col-md-2">
+        <%= f.label :zip %>
+        <%= f.text_field :zip, class: "form-control" %>
+    </div>
+    <div class="form-group col-md-2">
+        <%= f.submit "Actualizar", class: "btn btn-warning form-control" %>
+    </div>
+  </div>
+<% end %>
